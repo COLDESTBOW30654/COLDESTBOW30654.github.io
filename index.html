@@ -94,17 +94,25 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <body>
-    <p>
-        <div style="width:100%; height:350px;border:none;text-align:center">
-            <iframe allowtransparency="yes" frameborder="0" width="300" height="300" src="yiyan/index.html">
-        </div>
-    </p> 
-</body>
+        <div>
+    <p id="hitokoto">
+        <a href="#" id="hitokoto_text">:D 获取中...</a>
+    </p>
+    <script>
+        fetch('https://v1.hitokoto.cn')
+            .then(response => response.json())
+            .then(data => {
+            const hitokoto = document.querySelector('#hitokoto_text')
+            hitokoto.href = `https://hitokoto.cn/?uuid=${data.uuid}`
+            hitokoto.innerText = data.hitokoto
+            })
+            .catch(console.error)
+    </script>
+</div>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hengduan.asia/2024/07/04/yiyan/" data-id="cly6wdqiw0001s0ts2gwv3ove" data-title="今日一言" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://hengduan.asia/2024/07/04/yiyan/" data-id="cly6y61zo0009y0tsb0ti9yfd" data-title="今日一言" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -143,7 +151,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hengduan.asia/2024/06/20/thing-1/" data-id="clxmxe34o0000swts6tlo6qoj" data-title="我的网站更换域名啦！" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://hengduan.asia/2024/06/20/thing-1/" data-id="cly6y61zn0008y0ts76nihnxq" data-title="我的网站更换域名啦！" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -182,7 +190,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hengduan.asia/2024/06/08/daily-3/" data-id="clx5z9sy40000b4ts49485sjt" data-title="今日美好" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://hengduan.asia/2024/06/08/daily-3/" data-id="cly6y61zj0007y0ts86z7dwlc" data-title="今日美好" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -221,7 +229,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hengduan.asia/2024/05/25/Revisit-4/" data-id="clwlzvagz0001u8ts3r1q2g0q" data-title="故地重游" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://hengduan.asia/2024/05/25/Revisit-4/" data-id="cly6y61zd0004y0ts28kmd1bi" data-title="故地重游" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -260,7 +268,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hengduan.asia/2024/05/25/Revisit-3/" data-id="clwlqpakr0002twtsg8s2cnry" data-title="故地重游" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://hengduan.asia/2024/05/25/Revisit-3/" data-id="cly6y61zb0003y0tsal94b32j" data-title="故地重游" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -299,7 +307,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hengduan.asia/2024/05/25/daily-2/" data-id="clwlzvah10003u8tsbtpmfors" data-title="今日美好" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://hengduan.asia/2024/05/25/daily-2/" data-id="cly6y61zh0006y0ts0yhy01l9" data-title="今日美好" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -338,7 +346,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hengduan.asia/2024/05/25/Revisit-2/" data-id="clwlqpakn0001twts8w17cfwk" data-title="故地重游" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://hengduan.asia/2024/05/25/Revisit-2/" data-id="cly6y61z50001y0tsba0h6ql1" data-title="故地重游" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -377,7 +385,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hengduan.asia/2024/05/24/daily-1/" data-id="clwlzvagz0002u8ts11z1anl5" data-title="今日美好" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://hengduan.asia/2024/05/24/daily-1/" data-id="cly6y61zf0005y0tsevus0m9d" data-title="今日美好" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -416,7 +424,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hengduan.asia/2024/05/24/Revisit-1/" data-id="clwlqpakh0000twtsegc8hrfh" data-title="故地重游" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://hengduan.asia/2024/05/24/Revisit-1/" data-id="cly6y61za0002y0ts5fyh4881" data-title="故地重游" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -455,7 +463,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hengduan.asia/2024/05/20/Picture-1/" data-id="clwlzvagj0000u8ts8jdkhybl" data-title="有合照了好吧" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://hengduan.asia/2024/05/20/Picture-1/" data-id="cly6y61yx0000y0tscezb4o3t" data-title="有合照了好吧" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
