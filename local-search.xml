@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>一言分享</title>
+    <link href="/2024/07/05/yiyan-1/"/>
+    <url>/2024/07/05/yiyan-1/</url>
+    
+    <content type="html"><![CDATA[<video width="1000" height="400" controls>  <source src="" type="https://b23.tv/RJkrXB6">您的浏览器不支持 video 标签。</video>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>yiyan</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>关于我们的聊天记录</title>
+    <link href="/2024/07/05/wechat/"/>
+    <url>/2024/07/05/wechat/</url>
+    
+    <content type="html"><![CDATA[<h1 id="大号"><a href="#大号" class="headerlink" title="大号"></a>大号</h1><p><a href="https://hengduan.asia/wechat/Someone_I_love/index.html">Someone_I_love</a></p><iframe src="https://hengduan.asia/wechat/Someone_I_love/index.html" width="1000" height="400" frameborder="0">  <p>您的浏览器不支持iframe元素。</p></iframe><h1 id="小号"><a href="#小号" class="headerlink" title="小号"></a>小号</h1><p><a href="https://hengduan.asia/wechat/My_everything/index.html">My_everything</a></p><iframe src="https://hengduan.asia/wechat/My_everything/index.html" width="1000" height="400" frameborder="0">  <p>您的浏览器不支持iframe元素。</p></iframe><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=700 height=86 src="//music.163.com/outchain/player?type=2&id=421423808&auto=1&height=66"></iframe>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>一言</title>
+    <link href="/2024/07/05/yiyan/"/>
+    <url>/2024/07/05/yiyan/</url>
+    
+    <content type="html"><![CDATA[<style type="text/css">        a:link {            color:white;            text-decoration:none;        }        a:active {            color:white;            text-decoration:none;        }</style><div>    <p id="hitokoto">        <a href="#" id="hitokoto_text">请稍等，正在获取中...</a>    </p>    <script>        fetch('https://v1.hitokoto.cn')            .then(response => response.json())            .then(data => {            const hitokoto = document.querySelector('#hitokoto_text')            hitokoto.href = `https://hitokoto.cn/?uuid=${data.uuid}`            hitokoto.innerText = data.hitokoto            hitokoto.style="font-size: 30px;"            })            .catch(console.error)    </script></div><h6 id="警告！"><a href="#警告！" class="headerlink" title="警告！"></a>警告！</h6><h6 id="请不要重复刷新页面，否则会被API限制，导致无法获取，如果一直正在获取，可能是由于被API限制导致的，请稍等片刻再刷新页面。"><a href="#请不要重复刷新页面，否则会被API限制，导致无法获取，如果一直正在获取，可能是由于被API限制导致的，请稍等片刻再刷新页面。" class="headerlink" title="请不要重复刷新页面，否则会被API限制，导致无法获取，如果一直正在获取，可能是由于被API限制导致的，请稍等片刻再刷新页面。"></a>请不要重复刷新页面，否则会被API限制，导致无法获取，如果一直正在获取，可能是由于被API限制导致的，请稍等片刻再刷新页面。</h6><p>提示；本文章采用的一言功能为hitokoto网站提供的api，如有违反相关法律法规与个人无关。</p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=700 height=86 src="//music.163.com/outchain/player?type=2&id=1364292313&auto=1&height=66"></iframe>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>我的网站更换域名啦！</title>
+    <link href="/2024/06/20/thing-1/"/>
+    <url>/2024/06/20/thing-1/</url>
+    
+    <content type="html"><![CDATA[<h1 id="全新的域名已更换为"><a href="#全新的域名已更换为" class="headerlink" title="全新的域名已更换为"></a>全新的域名已更换为</h1><p><a href="https://hengduan.asia/">hengduan.asia</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>今日美好</title>
+    <link href="/2024/06/08/daily-3/"/>
+    <url>/2024/06/08/daily-3/</url>
+    
+    <content type="html"><![CDATA[<h1 id="天空真美，像你一样"><a href="#天空真美，像你一样" class="headerlink" title="天空真美，像你一样"></a>天空真美，像你一样</h1><h2 id="美好的天气，让我想起你"><a href="#美好的天气，让我想起你" class="headerlink" title="美好的天气，让我想起你"></a>美好的天气，让我想起你</h2><h3 id="你说的那些美好，都在我的脑海里闪烁"><a href="#你说的那些美好，都在我的脑海里闪烁" class="headerlink" title="你说的那些美好，都在我的脑海里闪烁"></a>你说的那些美好，都在我的脑海里闪烁</h3><h4 id="你说的那些美好，都在我的心里"><a href="#你说的那些美好，都在我的心里" class="headerlink" title="你说的那些美好，都在我的心里"></a>你说的那些美好，都在我的心里</h4><h5 id="你说的那些美好，都在我的记忆里"><a href="#你说的那些美好，都在我的记忆里" class="headerlink" title="你说的那些美好，都在我的记忆里"></a>你说的那些美好，都在我的记忆里</h5><h6 id="你说的那些美好，都在我的身体里"><a href="#你说的那些美好，都在我的身体里" class="headerlink" title="你说的那些美好，都在我的身体里"></a>你说的那些美好，都在我的身体里</h6><p><img src="/images/daily-3/IMG_20240608_171857.jpg" alt="天空"><br><img src="/images/daily-3/IMG_20240608_171904.jpg" alt="天空"></p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=700 height=86 src="//music.163.com/outchain/player?type=2&id=2067715194&auto=1&height=66"></iframe>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>故地重游</title>
+    <link href="/2024/05/25/Revisit-4/"/>
+    <url>/2024/05/25/Revisit-4/</url>
+    
+    <content type="html"><![CDATA[<h1 id="我的母校—-泉溪村小学"><a href="#我的母校—-泉溪村小学" class="headerlink" title="我的母校—-泉溪村小学"></a>我的母校—-泉溪村小学</h1><p><img src="/images/Revisit-4/IMG_20240525_174013.jpg"></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>故地重游</title>
+    <link href="/2024/05/25/Revisit-3/"/>
+    <url>/2024/05/25/Revisit-3/</url>
+    
+    <content type="html"><![CDATA[<h1 id="还记得这里吗？我们唯一一次光明正大，当着班上同学的面，牵手的地方"><a href="#还记得这里吗？我们唯一一次光明正大，当着班上同学的面，牵手的地方" class="headerlink" title="还记得这里吗？我们唯一一次光明正大，当着班上同学的面，牵手的地方"></a>还记得这里吗？我们唯一一次光明正大，当着班上同学的面，牵手的地方</h1><p><img src="/images/Revisit-3/IMG_20240525_171127.jpg"></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>今日美好</title>
+    <link href="/2024/05/25/daily-2/"/>
+    <url>/2024/05/25/daily-2/</url>
+    
+    <content type="html"><![CDATA[<h1 id="美丽的天空，就像蓝色的海洋"><a href="#美丽的天空，就像蓝色的海洋" class="headerlink" title="美丽的天空，就像蓝色的海洋"></a>美丽的天空，就像蓝色的海洋</h1><h2 id="阳光明媚，空气清新，没有一丝尘埃"><a href="#阳光明媚，空气清新，没有一丝尘埃" class="headerlink" title="阳光明媚，空气清新，没有一丝尘埃"></a>阳光明媚，空气清新，没有一丝尘埃</h2><p><img src="/images/daily-2/IMG_20240525183351.jpg" alt="天空"><br><img src="/images/daily-2/IMG_20240525183356.jpg" alt="天空"></p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=700 height=86 src="//music.163.com/outchain/player?type=2&id=2067715194&auto=1&height=66"></iframe>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>故地重游</title>
+    <link href="/2024/05/25/Revisit-2/"/>
+    <url>/2024/05/25/Revisit-2/</url>
+    
+    <content type="html"><![CDATA[<h1 id="黑八诶-PWP"><a href="#黑八诶-PWP" class="headerlink" title="黑八诶 PWP"></a>黑八诶 PWP</h1><p><img src="/images/Revisit-2/IMG_20240524_210132.jpg"></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>今日美好</title>
+    <link href="/2024/05/24/daily-1/"/>
+    <url>/2024/05/24/daily-1/</url>
+    
+    <content type="html"><![CDATA[<h1 id="今天的月亮格外圆，送给你"><a href="#今天的月亮格外圆，送给你" class="headerlink" title="今天的月亮格外圆，送给你"></a>今天的月亮格外圆，送给你</h1><p><img src="/images/daily-1/IMG_20240524_210312.jpg" alt="月球"></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>故地重游</title>
+    <link href="/2024/05/24/Revisit-1/"/>
+    <url>/2024/05/24/Revisit-1/</url>
+    
+    <content type="html"><![CDATA[<h1 id="故地重游，回到那个地方"><a href="#故地重游，回到那个地方" class="headerlink" title="故地重游，回到那个地方"></a>故地重游，回到那个地方</h1><p><img src="/images/Revisit-1/IMG_20240524_205244.jpg"><br><img src="/images/Revisit-1/IMG_20240524_205247.jpg"><br><img src="/images/Revisit-1/IMG_20240524_205251.jpg"></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>有合照了好吧</title>
+    <link href="/2024/05/20/Picture-1/"/>
+    <url>/2024/05/20/Picture-1/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/images/Picture-1/IMG_202406201-35902.jpg" alt="合照"></p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=700 height=86 src="//music.163.com/outchain/player?type=2&id=2116533072&auto=1&height=66"></iframe>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  
+</search>
