@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Days Matter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: #b0e0e6;
+            transition: background 0.5s ease-in-out;
+            animation: backgroundChange 10s infinite alternate;
+        }
+
+        @keyframes backgroundChange {
+            0% {
+                background: #b0e0e6; /* 浅天蓝色 */
+            }
+            100% {
+                background: #ffeb3b; /* 明亮的黄色 */
+            }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            position: relative;
+            text-align: center;
+            z-index: 10;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 300px;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .title {
+            background-color: #4285f4;
+            color: white;
+            padding: 12px;
+            border-radius: 8px 8px 0 0;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .title:hover {
+            background-color: #357ae8;
+            transform: scale(1.05);
+        }
+
+        .days {
+            font-size: 80px;
+            font-weight: 700;
+            margin: 20px 0;
+            color: #333;
+            opacity: 0;
+            animation: fadeIn 1s 0.5s forwards;
+            white-space: nowrap;  /* 确保文本不会换行 */
+            overflow: hidden; /* 隐藏超出的部分 */
+            text-overflow: ellipsis; /* 超出部分显示省略号 */
+            display: inline-flex; /* 强制元素在一行显示 */
+            align-items: baseline; /* 使文本和'天'字对齐 */
+        }
+
+        .days span {
+            margin-left: 5px; /* 给"天"字添加一点间隔 */
+        }
+
+        .target-date {
+            font-size: 16px;
+            color: #777;
+            margin-top: 10px;
+            opacity: 0;
+            animation: fadeIn 1s 1s forwards;
+        }
+
+        .fab {
+            position: absolute;
+            bottom: -25px;
+            right: 20px;
+            background-color: #ff9800;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            font-size: 28px;
+            border: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .fab:hover {
+            background-color: #e68a00;
+            transform: scale(1.1);
+        }
+
+        .footer {
+            font-size: 12px;
+            color: #999;
+            margin-top: 20px;
+        }
+
+        .footer a {
+            color: #4285f4; /* 超链接颜色 */
+            text-decoration: none; /* 去除下划线 */
+            transition: color 0.3s ease; /* 添加颜色过渡效果 */
+        }
+
+        .footer a:hover {
+            color: #357ae8; /* 悬停时的超链接颜色 */
+            text-decoration: underline; /* 悬停时显示下划线 */
+        }
+
+        .date-picker {
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .title-edit-box {
+            display: none;
+            margin-bottom: 20px;
+        }
+
+        .title-edit-box input {
+            width: 80%;
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        .title-edit-box button {
+            background-color: #4285f4;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .title-edit-box button:hover {
+            background-color: #357ae8;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .modal {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .modal button {
+            background-color: #4285f4;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .modal button:hover {
+            background-color: #357ae8;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="title" id="title">距离目标日还有</div>
+        <div class="days" id="days">0 <span>天</span></div>
+        <div class="target-date" id="targetDate">目标日: 2026年2月17日</div>
+        <div class="footer">Powered by <a href="hengduan.us.kg">hengduan</a></div>
+        <button class="fab" id="fab">✎</button>
+
+        <div class="title-edit-box" id="titleEditBox">
+            <input type="text" id="newTitle" placeholder="请输入新的标题">
+            <button id="saveTitle">保存</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <h2>选择新的目标日期</h2>
+            <input type="date" id="newDate" class="date-picker">
+            <br>
+            <button id="saveDate">保存</button>
+        </div>
+    </div>
+
+    <script>
+        // 设置或获取 Cookie
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
+        }
+
+        function getCookie(name) {
+            const cookies = document.cookie.split("; ");
+            for (let i = 0; i < cookies.length; i++) {
+                const [key, value] = cookies[i].split("=");
+                if (key === name) {
+                    return decodeURIComponent(value);
+                }
+            }
+            return null;
+        }
+
+        // 从 Cookie 获取目标日期和标题，默认为 2026年2月17日
+        let targetDate = new Date(getCookie("targetDate") || "2026-02-17");
+        let titleText = getCookie("titleText") || "距离目标日还有";
+
+        const titleElement = document.getElementById("title");
+        const targetDateText = document.getElementById("targetDate");
+
+        // 更新目标日期文本
+        function updateTargetDateText() {
+            targetDateText.innerText = `目标日: ${targetDate.getFullYear()}年${targetDate.getMonth() + 1}月${targetDate.getDate()}日`;
+        }
+
+        // 更新天数显示
+        function updateDays() {
+            const currentDate = new Date();
+            const diffTime = targetDate - currentDate;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            const daysElement = document.getElementById("days");
+            if (diffDays > 0) {
+                titleElement.innerText = titleText;
+                daysElement.innerText = `${diffDays} 天`;
+            } else {
+                titleElement.innerText = "这是一个纪念日";
+                daysElement.innerText = `${Math.abs(diffDays)} 天`;
+            }
+        }
+
+        // 更新页面内容
+        updateTargetDateText();
+        updateDays();
+
+        // 每天更新一次
+        setInterval(updateDays, 1000 * 60 * 60 * 24);
+
+        // 编辑目标日期弹窗
+        document.getElementById("fab").addEventListener("click", function () {
+            document.getElementById("modalOverlay").style.display = "flex";
+            document.getElementById("newDate").value = targetDate.toISOString().split("T")[0];
+        });
+
+        // 保存新的目标日期
+        document.getElementById("saveDate").addEventListener("click", function () {
+            const newDate = document.getElementById("newDate").value;
+            if (newDate) {
+                const parsedDate = new Date(newDate);
+                if (!isNaN(parsedDate)) {
+                    targetDate = parsedDate;
+                    setCookie("targetDate", newDate, 365);
+                    updateTargetDateText();
+                    updateDays();
+                    document.getElementById("modalOverlay").style.display = "none";
+                } else {
+                    alert("请选择一个有效的日期！");
+                }
+            }
+        });
+
+        // 修改标题
+        titleElement.addEventListener("click", function () {
+            const titleEditBox = document.getElementById("titleEditBox");
+            titleEditBox.style.display = "block";
+            document.getElementById("newTitle").value = titleText;
+        });
+
+        document.getElementById("saveTitle").addEventListener("click", function () {
+            const newTitle = document.getElementById("newTitle").value;
+            if (newTitle) {
+                titleText = newTitle;
+                setCookie("titleText", newTitle, 365);
+                titleElement.innerText = newTitle;
+                document.getElementById("titleEditBox").style.display = "none";
+            }
+        });
+
+    </script>
+
+</body>
+</html>
