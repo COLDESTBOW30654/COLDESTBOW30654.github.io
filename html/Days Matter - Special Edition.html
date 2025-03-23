@@ -148,13 +148,13 @@
     <div class="container">
         <div class="title" id="title">和香在一起已经</div>
         <div class="days" id="days">0</div>
-        <div class="target-date" id="targetDate">目标日: 2024年12月21日</div>
+        <div class="target-date" id="targetDate">目标日: 2025年03月14日</div>
         <div class="footer">Powered by Days Matter</div>
     </div>
 
     <script>
         // 设置目标日期和标题，不可修改
-        let targetDate = new Date("2024-12-21");
+        let targetDate = new Date("2025-03-14");
         let titleText = "和香在一起已经";
 
         const titleElement = document.getElementById("title");
@@ -175,10 +175,10 @@
 
             if (diffDays > 0) {
                 titleElement.innerText = titleText;
-                daysElement.innerText = `${diffDays} 天`;
+                daysElement.innerText = `${diffDays+1} 天`;
             } else {
                 titleElement.innerText = titleText;
-                daysElement.innerText = `${Math.abs(diffDays)} 天`;
+                daysElement.innerText = `${Math.abs(diffDays)+1} 天`;
             }
         }
 

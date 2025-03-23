@@ -276,8 +276,8 @@
             return null;
         }
 
-        // 从 Cookie 获取目标日期和标题，默认为 2026年2月17日
-        let targetDate = new Date(getCookie("targetDate") || "2026-02-17");
+        // 从 Cookie 获取目标日期和标题，默认为 2011年3月15日
+        let targetDate = new Date(getCookie("targetDate") || "2011-03-15");
         let titleText = getCookie("titleText") || "距离目标日还有";
 
         const titleElement = document.getElementById("title");
