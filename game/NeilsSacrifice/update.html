@@ -250,7 +250,11 @@
             </div>
         
         <footer>
-            <p>© 2025 白鹿原嚒 | 版本号：v0.0.1.alpha | 持续更新中</p>
+            <div>
+            <p>© 2025 白鹿原嚒 | 版本号：
+                <span id="version" class="version-info">获取中...</span>
+                 | 持续更新中</p>
+            </div>
         </footer>
     </div>
     
@@ -280,5 +284,6 @@
             }
         });
     </script>
+    <script>fetch('https://hengduan.dpdns.org/game/NeilsSacrifice/update.txt').then(r=>r.text()).then(t=>document.getElementById('version').innerText=t).catch(e=>document.getElementById('version').innerText='最新版本获取失败')</script>
 </body>
 </html>
