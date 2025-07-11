@@ -5,13 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Days Matter</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Days Matter</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -231,15 +224,77 @@
             background-color: #357ae8;
         }
 
+        /* 切换按钮样式 */
+        .toggle-button {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
     </style>
-
+</head>
 <body>
-
     <div class="container">
         <div class="title" id="title">距离目标日还有</div>
         <div class="days" id="days">0 <span>天</span></div>
         <div class="target-date" id="targetDate">目标日: 2026年2月17日</div>
         <div class="footer">Powered by <a href="hengduan.dpdns.org">hengduan</a></div>
+        <div class="toggle-button" id="toggleButton">
+            <label class="switch">
+                <input type="checkbox" id="toggleIncludeStartDate">
+                <span class="slider round"></span>
+            </label>
+            <label for="toggleIncludeStartDate">包含起始日</label>
+        </div>
         <button class="fab" id="fab">✎</button>
 
         <div class="title-edit-box" id="titleEditBox">
@@ -279,9 +334,11 @@
         // 从 Cookie 获取目标日期和标题，默认为 2011年3月15日
         let targetDate = new Date(getCookie("targetDate") || "2011-03-15");
         let titleText = getCookie("titleText") || "距离目标日还有";
+        let includeStartDate = getCookie("includeStartDate") === "true" || false;
 
         const titleElement = document.getElementById("title");
         const targetDateText = document.getElementById("targetDate");
+        const toggleButton = document.getElementById("toggleButton");
 
         // 更新目标日期文本
         function updateTargetDateText() {
@@ -295,12 +352,19 @@
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
             const daysElement = document.getElementById("days");
-            if (diffDays > 0) {
+
+            if (diffDays < 0) {
+                toggleButton.style.display = "block";
+                titleElement.innerText = "这是一个纪念日";
+                daysElement.innerText = `${Math.abs(diffDays) + (includeStartDate ? 1 : 0)} 天`;
+            } else if (diffDays === 0) {
+                toggleButton.style.display = "block";
+                titleElement.innerText = "今天是目标日";
+                daysElement.innerText = `${diffDays + (includeStartDate ? 1 : 0)} 天`;
+            } else {
+                toggleButton.style.display = "none";
                 titleElement.innerText = titleText;
                 daysElement.innerText = `${diffDays} 天`;
-            } else {
-                titleElement.innerText = "这是一个纪念日";
-                daysElement.innerText = `${Math.abs(diffDays)} 天`;
             }
         }
 
@@ -351,7 +415,12 @@
             }
         });
 
+        // 处理包含起始日按钮的点击事件
+        document.getElementById("toggleIncludeStartDate").addEventListener("click", function() {
+            includeStartDate = !includeStartDate;
+            setCookie("includeStartDate", includeStartDate, 365);
+            updateDays();
+        });
     </script>
-
 </body>
 </html>
