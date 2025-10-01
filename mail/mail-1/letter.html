@@ -149,8 +149,18 @@
             const scrollPosition = window.scrollY;
             const paper = document.getElementById('paper');
             
-            // 轻微的视差效果
-            paper.style.transform = `rotateX(0deg) translateY(${scrollPosition * 0.05}px)`;
+            // 轻微的视差效果 - 仅在桌面端应用
+            if (window.innerWidth > 768) {
+                paper.style.transform = `rotateX(0deg) translateY(${scrollPosition * 0.05}px)`;
+            }
+        });
+        
+        // 确保移动设备上内容可以完全滚动
+        document.addEventListener('DOMContentLoaded', function() {
+            // 移除可能阻止滚动的样式
+            document.body.style.overflow = 'auto';
+            document.body.style.height = 'auto';
+            document.body.style.minHeight = '100vh';
         });
         
         // 添加页面加载完成后的装饰动画
