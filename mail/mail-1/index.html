@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>神秘信件</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- 预加载资源 -->
+    <link rel="preload" href="letter.html" as="document" crossorigin="anonymous">
+    <link rel="preload" href="letter.css" as="style" crossorigin="anonymous">
+    <link rel="prefetch" href="letter.html" as="document">
+    <link rel="prefetch" href="letter.css" as="style">
+    <link rel="preload" href="data:image/png;base64,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" as="image">
+
+    <!-- DNS 预解析 -->
+    <link rel="dns-prefetch" href="//localhost">
+    
+    <!-- 预连接 -->
+    <link rel="preconnect" href="//localhost" crossorigin>
+    
+</head>
+<body>
+    <div class="container">
+        <!-- 装饰元素 -->
+        <div class="decorations">
+            <!-- 纸飞机装饰 -->
+            <div class="paper-plane"></div>
+            <div class="paper-plane second"></div>
+            
+            <!-- 爱心装饰 -->
+            <div class="heart"></div>
+            <div class="heart second"></div>
+            
+            <!-- 星星装饰 -->
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            
+            <!-- 气泡装饰 -->
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+        </div>
+        
+        <div class="envelope" id="envelope">
+            <!-- 装饰贴纸 -->
+            <div class="sticker"></div>
+            
+            <!-- 信封印章 -->
+            <div class="seal">
+                <span>密封</span>
+            </div>
+            
+            <!-- 信封盖 -->
+            <div class="flap">
+                <div class="flap-line"></div>
+            </div>
+            
+            <!-- 信封主体 -->
+            <div class="body">
+                <!-- 邮票 -->
+                <div class="stamp">
+                    <div class="stamp-design"></div>
+                    <div class="stamp-text">Love</div>
+                </div>
+                
+                <!-- 地址区域 -->
+                <div class="address">
+                    <div class="address-line"></div>
+                    <div class="address-line"></div>
+                    <div class="address-line"></div>
+                    <div class="address-line"></div>
+                </div>
+            </div>
+            
+            <!-- 阴影效果 -->
+            <div class="shadow"></div>
+        </div>
+        
+        <!-- 提示文字 -->
+        <p class="instruction">点击信封打开</p>
+    </div>
+
+    <script>
+        // 增强的预加载功能
+        let letterContent = null;
+        let isLetterPreloaded = false;
+        let preloadAttempts = 0;
+        const maxAttempts = 3;
+        
+        // 优先使用 service worker 缓存（如果支持）
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(error => {
+                    console.log('Service Worker 注册失败:', error);
+                });
+            });
+        }
+        
+        // 预加载函数
+        function preloadLetter() {
+            // 使用 fetch API 预加载信件内容
+            fetch('letter.html', {
+                method: 'GET',
+                cache: 'force-cache',
+                credentials: 'same-origin'
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                }
+                throw new Error('网络响应异常');
+            })
+            .then(content => {
+                letterContent = content;
+                isLetterPreloaded = true;
+                console.log('信件内容预加载成功');
+            })
+            .catch(error => {
+                console.log('预加载失败:', error);
+                preloadAttempts++;
+                
+                // 如果失败，尝试重新预加载
+                if (preloadAttempts < maxAttempts) {
+                    setTimeout(preloadLetter, 1000 * preloadAttempts);
+                }
+            });
+            
+            // 同时预加载 CSS 文件
+            fetch('letter.css', {
+                method: 'GET',
+                cache: 'force-cache'
+            }).catch(error => {
+                console.log('CSS 预加载失败:', error);
+            });
+        }
+
+        // 尽早启动预加载 - 页面加载时就开始
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', preloadLetter);
+        } else {
+            // 如果页面已经加载，则立即开始预加载
+            preloadLetter();
+        }
+
+        // 添加页面可见性变化监听，确保在后台也能继续加载
+        document.addEventListener('visibilitychange', () => {
+            if (!isLetterPreloaded && document.visibilityState === 'visible') {
+                preloadLetter();
+            }
+        });
+
+        // 信封交互逻辑
+        const envelope = document.getElementById('envelope');
+        
+        // 添加悬停动画
+        envelope.addEventListener('mouseenter', function() {
+            this.classList.add('hover');
+        });
+        
+        envelope.addEventListener('mouseleave', function() {
+            this.classList.remove('hover');
+        });
+        
+        // 点击事件 - 重构为多阶段动画
+        envelope.addEventListener('click', function() {
+            // 首先添加缩放效果
+            envelope.classList.add('scale-up');
+            
+            // 延迟添加打开动画，模拟真实的打开过程
+            setTimeout(function() {
+                envelope.classList.add('open');
+                
+                // 动画完成后加载内容
+                // 总动画时间：缩放0.7s + 打开动画2.5s
+                setTimeout(function() {
+                    // 确保页面仍然可见且没有被中断
+                    if (document.visibilityState === 'visible') {
+                        if (letterContent) {
+                            // 如果预加载成功，直接替换当前页面内容
+                            // 添加平滑过渡效果
+                            document.body.style.transition = 'opacity 0.6s ease-in-out';
+                            document.body.style.opacity = '0';
+                            
+                            setTimeout(function() {
+                                document.open();
+                                document.write(letterContent);
+                                document.close();
+                            }, 400);
+                        } else {
+                            // 如果预加载失败，使用常规跳转，但添加过渡动画
+                            document.body.style.transition = 'opacity 0.5s ease';
+                            document.body.style.opacity = '0';
+                            
+                            setTimeout(function() {
+                                window.location.href = 'letter.html';
+                            }, 300);
+                        }
+                    }
+                }, 2500); // 延长到2.5秒，确保所有动画都能完整播放
+            }, 700); // 缩放动画后开始打开动画
+        });
+    </script>
+    
+
+</body>
+</html>

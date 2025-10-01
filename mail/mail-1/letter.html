@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>信件内容</title>
+    <link rel="stylesheet" href="letter.css">
+    
+    <!-- 预加载下一个页面资源 -->
+    <link rel="preload" href="index.html" as="document" crossorigin="anonymous">
+    <link rel="prefetch" href="index.html" as="document">
+    <link rel="preload" href="style.css" as="style" crossorigin="anonymous">
+    <link rel="prefetch" href="style.css" as="style">
+    
+    <!-- 预加载字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    
+    <!-- DNS 预解析 -->
+    <link rel="dns-prefetch" href="//localhost">
+    
+    <!-- 预连接 -->
+    <link rel="preconnect" href="//localhost" crossorigin>
+    
+    <!-- 预加载图片 -->
+    <link rel="preload" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23ffd9da' d='M50 15C30 15 15 30 15 50s15 35 35 35 35-15 35-35S70 15 50 15zm0 60c-13.8 0-25-11.2-25-25s11.2-25 25-25 25 11.2 25 25-11.2 25-25 25z'/%3E%3C/svg%3E" as="image">
+    <link rel="preload" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23bde0fe' d='M20 50c0-16.6 13.4-30 30-30s30 13.4 30 30-13.4 30-30 30-30-13.4-30-30z'/%3E%3C/svg%3E" as="image">
+    <link rel="preload" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23a5b4fc' d='M20 50c0-16.6 13.4-30 30-30s30 13.4 30 30-13.4 30-30 30-30-13.4-30-30z'/%3E%3C/svg%3E" as="image">
+    
+</head>
+<body>
+    <!-- 返回按钮 -->
+    <button class="back-button" id="backButton">
+        <svg viewBox="0 0 24 24">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
+        </svg>
+    </button>
+
+    <!-- 装饰性背景元素 -->
+    <div class="background-decorations">
+        <div class="bg-circle bg-circle-1"></div>
+        <div class="bg-circle bg-circle-2"></div>
+        <div class="bg-circle bg-circle-3"></div>
+        <div class="bg-circle bg-circle-4"></div>
+        <div class="bg-heart"></div>
+        <div class="bg-heart bg-heart-2"></div>
+    </div>
+    
+    <div class="letter-container">
+        <div class="paper" id="paper">
+            <!-- 信件装饰角 -->
+            <div class="corner-decoration top-left"></div>
+            <div class="corner-decoration top-right"></div>
+            <div class="corner-decoration bottom-left"></div>
+            <div class="corner-decoration bottom-right"></div>
+            
+            <div class="letter-header">
+                <h1>致我亲爱的朋友</h1>
+                <p class="date">2023年10月15日</p>
+                <!-- 装饰分隔线 -->
+                <div class="decorative-line">
+                    <span class="line-dot"></span>
+                    <span class="line-dot"></span>
+                    <span class="line-dot"></span>
+                    <span class="line-dot"></span>
+                    <span class="line-dot"></span>
+                </div>
+            </div>
+            
+            <div class="letter-content">
+                <div class="content-with-decoration">
+                    <p>亲爱的朋友：</p>
+                    <p>展信安！</p>
+                    <p>这是一封跨越数字世界的信，承载着温暖的问候和美好的祝愿。在这个快节奏的时代，我们很少有机会静下心来，用文字传递内心的情感。</p>
+                    
+                    <!-- 装饰性图标 -->
+                    <div class="decoration-icon decoration-icon-1"></div>
+                    
+                    <p>希望这封信能带给你片刻的宁静和愉悦。生活中的每一个瞬间都值得珍惜，每一次相遇都有它特别的意义。</p>
+                    <p>无论你此刻身在何处，无论你正在经历什么，都请记得：你并不孤单，总有爱你的人在默默地关心着你。</p>
+                    
+                    <!-- 装饰性图标 -->
+                    <div class="decoration-icon decoration-icon-2"></div>
+                    
+                    <p>愿你在未来的日子里，心中充满阳光，脸上常带微笑。愿所有的美好都与你不期而遇。</p>
+                    <p class="closing">祝你一切顺利！</p>
+                    <p class="signature">你的朋友</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 优先使用 service worker 缓存（如果支持）
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(error => {
+                    console.log('Service Worker 注册失败:', error);
+                });
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const paper = document.getElementById('paper');
+            const backButton = document.getElementById('backButton');
+            
+            // 添加入场动画
+            setTimeout(function() {
+                paper.classList.add('visible');
+            }, 100);
+            
+            // 返回按钮点击事件
+        backButton.addEventListener('click', function() {
+            // 添加退场动画
+            paper.classList.remove('visible');
+            paper.style.transition = 'all 1s cubic-bezier(0.2, 0.8, 0.2, 1)';
+            paper.style.transform = 'rotateX(90deg) translateY(50px) scale(0.95)';
+            paper.style.opacity = '0';
+            paper.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1)';
+            
+            // 背景装饰淡出
+            const bgDecorations = document.querySelectorAll('.background-decorations > div');
+            bgDecorations.forEach((decor, index) => {
+                setTimeout(() => {
+                    decor.style.transition = 'all 0.6s ease-out';
+                    decor.style.opacity = '0';
+                }, index * 100);
+            });
+            
+            // 信件内容淡出
+            const contentElements = document.querySelectorAll('.letter-content p');
+            contentElements.forEach((elem, index) => {
+                setTimeout(() => {
+                    elem.style.transition = 'all 0.5s ease-out';
+                    elem.style.opacity = '0';
+                    elem.style.transform = 'translateY(10px)';
+                }, index * 50);
+            });
+            
+            // 动画结束后返回
+            setTimeout(function() {
+                window.location.href = 'index.html';
+            }, 800);
+        });
+        
+        // 添加滚动动画效果
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY;
+            const paper = document.getElementById('paper');
+            
+            // 轻微的视差效果
+            paper.style.transform = `rotateX(0deg) translateY(${scrollPosition * 0.05}px)`;
+        });
+        
+        // 添加页面加载完成后的装饰动画
+        setTimeout(function() {
+            const bgDecorations = document.querySelectorAll('.background-decorations > div');
+            bgDecorations.forEach((decor, index) => {
+                setTimeout(() => {
+                    decor.classList.add('animate-in');
+                }, index * 200 + 500);
+            });
+        }, 1000);
+        });
+    </script>
+    
+
+</body>
+</html>
