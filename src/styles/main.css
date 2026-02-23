@@ -1,8 +1,17 @@
 @tailwind components;
 
 @layer components {
+    html.is-rainbow-mode .card-base {
+        background-color: var(--card-bg);
+    }
+
+    html.is-rainbow-mode .card-base::before {
+        background-color: var(--card-bg);
+    }
+
     .card-base {
         @apply rounded-[var(--radius-large)] overflow-hidden bg-[var(--card-bg)] transition;
+        @apply border border-black/5 dark:border-white/10;
     }
     h1, h2, h3, h4, h5, h6, p, a, span, li, ul, ol, blockquote, code, pre, table, th, td, strong {
         @apply transition;

@@ -1,7 +1,7 @@
 ---
 title: hello world
 published: 2026-02-23
-description: '彳尔女子，这是一条测速文章，因为我现在还懒得写文章'
+description: '彳尔女子，这是一条测试文章，因为我现在还懒得写文章'
 draft: false 
 ---
 

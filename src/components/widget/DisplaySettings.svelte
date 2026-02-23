@@ -1,18 +1,103 @@
 <script lang="ts">
+import { AUTO_MODE, DARK_MODE, LIGHT_MODE } from "@constants/constants";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import Icon from "@iconify/svelte";
-import { getDefaultHue, getHue, setHue } from "@utils/setting-utils";
+import {
+	getBgBlur,
+	getDefaultHue,
+	getHideBg,
+	getHue,
+	getRainbowMode,
+	getRainbowSpeed,
+	getStoredTheme,
+	setBgBlur,
+	setHideBg,
+	setHue,
+	setRainbowMode,
+	setRainbowSpeed,
+	setTheme,
+} from "@utils/setting-utils";
+import { onMount } from "svelte";
+import type { LIGHT_DARK_MODE } from "@/types/config";
 
 let hue = getHue();
+let theme = getStoredTheme();
+let isRainbowMode = getRainbowMode();
+let rainbowSpeed = getRainbowSpeed();
+let bgBlur = getBgBlur();
+let hideBg = getHideBg();
 const defaultHue = getDefaultHue();
+
+onMount(() => {
+	if (isRainbowMode) {
+		document.documentElement.classList.add("is-rainbow-mode");
+		startRainbowAnimation();
+	}
+});
 
 function resetHue() {
 	hue = getDefaultHue();
 }
 
+function switchTheme(newTheme: LIGHT_DARK_MODE) {
+	theme = newTheme;
+	setTheme(newTheme);
+}
+
+function toggleRainbow() {
+	isRainbowMode = !isRainbowMode;
+	setRainbowMode(isRainbowMode);
+
+	if (isRainbowMode) {
+		document.documentElement.classList.add("is-rainbow-mode");
+		startRainbowAnimation();
+	} else {
+		document.documentElement.classList.remove("is-rainbow-mode");
+		stopRainbowAnimation();
+		setHue(hue);
+	}
+}
+
+let rainbowInterval: number | null = null;
+
+function startRainbowAnimation() {
+	let currentHue = 0;
+	rainbowInterval = window.setInterval(() => {
+		currentHue = (currentHue + rainbowSpeed * 0.5) % 360;
+		document.documentElement.style.setProperty(
+			"--hue",
+			String(Math.floor(currentHue)),
+		);
+	}, 200);
+}
+
+function stopRainbowAnimation() {
+	if (rainbowInterval) {
+		clearInterval(rainbowInterval);
+		rainbowInterval = null;
+	}
+}
+
+function toggleHideBg() {
+	hideBg = !hideBg;
+	setHideBg(hideBg);
+}
+
+function onSpeedChange() {
+	setRainbowSpeed(rainbowSpeed);
+	if (isRainbowMode) {
+		stopRainbowAnimation();
+		startRainbowAnimation();
+	}
+}
+
 $: if (hue || hue === 0) {
 	setHue(hue);
+}
+
+$: if (bgBlur || bgBlur === 0) {
+	setBgBlur(bgBlur);
 }
 </script>
 
@@ -39,7 +124,127 @@ $: if (hue || hue === 0) {
     </div>
     <div class="w-full h-6 px-1 bg-[oklch(0.80_0.10_0)] dark:bg-[oklch(0.70_0.10_0)] rounded select-none">
         <input aria-label={i18n(I18nKey.themeColor)} type="range" min="0" max="360" bind:value={hue}
-               class="slider" id="colorSlider" step="5" style="width: 100%">
+               class="slider" id="colorSlider" step="5" style="width: 100%" disabled={isRainbowMode}>
+    </div>
+
+    <div class="flex flex-row gap-2 mb-3 mt-4 items-center justify-between">
+        <div class="flex gap-2 font-bold text-lg text-neutral-900 dark:text-neutral-100 transition relative ml-3
+            before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
+            before:absolute before:-left-3 before:top-[0.33rem]"
+        >
+            {i18n(I18nKey.lightMode)}
+        </div>
+        <button aria-label="Light Mode"
+            class="w-10 h-7 rounded-md transition flex items-center justify-center active:scale-90
+            {theme === LIGHT_MODE ? 'bg-[var(--primary)] text-white' : 'bg-[var(--btn-regular-bg)] text-[var(--btn-content)] hover:bg-[var(--btn-regular-bg-hover)]'}"
+            on:click={() => switchTheme(LIGHT_MODE)}
+        >
+            <Icon icon="material-symbols:wb-sunny-rounded" class="text-[1.1rem]"></Icon>
+        </button>
+    </div>
+
+    <div class="flex flex-row gap-2 mb-3 items-center justify-between">
+        <div class="flex gap-2 font-bold text-lg text-neutral-900 dark:text-neutral-100 transition relative ml-3
+            before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
+            before:absolute before:-left-3 before:top-[0.33rem]"
+        >
+            {i18n(I18nKey.darkMode)}
+        </div>
+        <button aria-label="Dark Mode"
+            class="w-10 h-7 rounded-md transition flex items-center justify-center active:scale-90
+            {theme === DARK_MODE ? 'bg-[var(--primary)] text-white' : 'bg-[var(--btn-regular-bg)] text-[var(--btn-content)] hover:bg-[var(--btn-regular-bg-hover)]'}"
+            on:click={() => switchTheme(DARK_MODE)}
+        >
+            <Icon icon="material-symbols:dark-mode-rounded" class="text-[1.1rem]"></Icon>
+        </button>
+    </div>
+
+    <div class="flex flex-row gap-2 mb-3 items-center justify-between">
+        <div class="flex gap-2 font-bold text-lg text-neutral-900 dark:text-neutral-100 transition relative ml-3
+            before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
+            before:absolute before:-left-3 before:top-[0.33rem]"
+        >
+            {i18n(I18nKey.systemMode)}
+        </div>
+        <button aria-label="Auto Mode"
+            class="w-10 h-7 rounded-md transition flex items-center justify-center active:scale-90
+            {theme === AUTO_MODE ? 'bg-[var(--primary)] text-white' : 'bg-[var(--btn-regular-bg)] text-[var(--btn-content)] hover:bg-[var(--btn-regular-bg-hover)]'}"
+            on:click={() => switchTheme(AUTO_MODE)}
+        >
+            <Icon icon="material-symbols:hdr-auto-rounded" class="text-[1.1rem]"></Icon>
+        </button>
+    </div>
+
+    <div class="flex flex-row gap-2 mb-3 mt-4 items-center justify-between">
+        <div class="flex gap-2 font-bold text-lg text-neutral-900 dark:text-neutral-100 transition relative ml-3
+            before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
+            before:absolute before:-left-3 before:top-[0.33rem]"
+        >
+            禁用背景
+        </div>
+        <button aria-label="Hide Background"
+            class="w-10 h-7 rounded-md transition flex items-center justify-center active:scale-90
+            {hideBg ? 'bg-[var(--primary)] text-white' : 'bg-[var(--btn-regular-bg)] text-[var(--btn-content)] hover:bg-[var(--btn-regular-bg-hover)]'}"
+            on:click={toggleHideBg}
+        >
+            <Icon icon="material-symbols:visibility-off-outline-rounded" class="text-[1.1rem]"></Icon>
+        </button>
+    </div>
+
+    <div class="flex flex-row gap-2 mb-3 items-center justify-between">
+        <div class="flex gap-2 font-bold text-lg text-neutral-900 dark:text-neutral-100 transition relative ml-3
+            before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
+            before:absolute before:-left-3 before:top-[0.33rem]"
+        >
+            彩虹模式
+        </div>
+        <button aria-label="Rainbow Mode"
+            class="w-10 h-7 rounded-md transition flex items-center justify-center active:scale-90
+            {isRainbowMode ? 'bg-[var(--primary)] text-white' : 'bg-[var(--btn-regular-bg)] text-[var(--btn-content)] hover:bg-[var(--btn-regular-bg-hover)]'}"
+            on:click={toggleRainbow}
+        >
+            <Icon icon="material-symbols:palette-rounded" class="text-[1.1rem]"></Icon>
+        </button>
+    </div>
+
+    {#if isRainbowMode}
+    <div class="flex flex-row gap-2 mb-3 items-center justify-between">
+        <div class="flex gap-2 font-bold text-lg text-neutral-900 dark:text-neutral-100 transition relative ml-3
+            before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
+            before:absolute before:-left-3 before:top-[0.33rem]"
+        >
+            变换速率
+        </div>
+        <div class="flex gap-1">
+             <div class="transition bg-[var(--btn-regular-bg)] w-10 h-7 rounded-md flex justify-center
+            font-bold text-sm items-center text-[var(--btn-content)]">
+                {rainbowSpeed}
+            </div>
+        </div>
+    </div>
+    <div class="w-full h-6 bg-[var(--btn-regular-bg)] rounded select-none overflow-hidden mb-3">
+        <input aria-label="变换速率" type="range" min="1" max="100" bind:value={rainbowSpeed} on:change={onSpeedChange}
+               class="slider" step="1" style="width: 100%; --value-percent: {(rainbowSpeed - 1) / 99 * 100}%">
+    </div>
+    {/if}
+
+    <div class="flex flex-row gap-2 mb-3 mt-4 items-center justify-between">
+        <div class="flex gap-2 font-bold text-lg text-neutral-900 dark:text-neutral-100 transition relative ml-3
+            before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
+            before:absolute before:-left-3 before:top-[0.33rem]"
+        >
+            背景模糊
+        </div>
+        <div class="flex gap-1">
+            <div class="transition bg-[var(--btn-regular-bg)] w-10 h-7 rounded-md flex justify-center
+            font-bold text-sm items-center text-[var(--btn-content)]">
+                {bgBlur}
+            </div>
+        </div>
+    </div>
+    <div class="w-full h-6 bg-[var(--btn-regular-bg)] rounded select-none overflow-hidden">
+        <input aria-label="背景模糊" type="range" min="0" max="20" bind:value={bgBlur}
+               class="slider" step="1" style="width: 100%; --value-percent: {bgBlur / 20 * 100}%">
     </div>
 </div>
 
@@ -51,6 +256,9 @@ $: if (hue || hue === 0) {
         height 1.5rem
         background-image var(--color-selection-bar)
         transition background-image 0.15s ease-in-out
+
+        &:not(#colorSlider)
+            background-image linear-gradient(to right, var(--primary) 0%, var(--primary) var(--value-percent), transparent var(--value-percent), transparent 100%)
 
         /* Input Thumb */
         &::-webkit-slider-thumb
