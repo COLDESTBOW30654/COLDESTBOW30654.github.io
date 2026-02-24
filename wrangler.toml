@@ -2,5 +2,8 @@ name = "fuwari-blog"
 compatibility_date = "2026-02-24"
 pages_build_output_dir = "./dist"
 
+[build]
+command = "pnpm install --no-frozen-lockfile && pnpm build"
+
 [vars]
 SITE_TITLE = "白鹿原嚒"
