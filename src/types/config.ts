@@ -90,3 +90,30 @@ export type BlogPostData = {
 export type ExpressiveCodeConfig = {
 	theme: string;
 };
+
+export type AnalyticsConfig = {
+	clarity?: {
+		enable: boolean;
+		projectId: string;
+	};
+};
+
+export type GitHubEditConfig = {
+	enable: boolean;
+	baseUrl: string;
+};
+
+export type GiscusConfig = {
+	enable: boolean;
+	dataRepo: string;
+	dataRepoId: string;
+	dataCategory: string;
+	dataCategoryId: string;
+	dataMapping: string;
+	dataStrict: string;
+	dataReactionsEnabled: string;
+	dataEmitMetadata: string;
+	dataInputPosition: string;
+	dataLang: string;
+	dataLoading: string;
+};

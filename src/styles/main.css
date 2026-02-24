@@ -13,6 +13,19 @@
         @apply rounded-[var(--radius-large)] overflow-hidden bg-[var(--card-bg)] transition;
         @apply border border-black/5 dark:border-white/10;
     }
+    .card-glass {
+        @apply bg-[var(--card-bg)] border border-black/10 dark:border-white/10 backdrop-blur-md;
+        -webkit-backdrop-filter: blur(12px);
+    }
+
+    .float-panel {
+        @apply top-[5.25rem] rounded-[var(--radius-large)] overflow-hidden bg-[var(--float-panel-bg)] transition shadow-xl dark:shadow-none;
+    }
+
+    .float-panel-closed {
+        @apply -translate-y-1 opacity-0 pointer-events-none
+    }
+
     h1, h2, h3, h4, h5, h6, p, a, span, li, ul, ol, blockquote, code, pre, table, th, td, strong {
         @apply transition;
     }
@@ -29,12 +42,7 @@
     .link-lg {
         @apply transition rounded-md p-1.5 -m-1.5 expand-animation;
     }
-    .float-panel {
-        @apply top-[5.25rem] rounded-[var(--radius-large)] overflow-hidden bg-[var(--float-panel-bg)] transition shadow-xl dark:shadow-none
-    }
-    .float-panel-closed {
-        @apply -translate-y-1 opacity-0 pointer-events-none
-    }
+
     .search-panel mark {
         @apply bg-transparent text-[var(--primary)]
     }
@@ -75,7 +83,6 @@
     }
 
     #toc-inner-wrapper {
-        mask-image: linear-gradient(to bottom, transparent 0%, black 2rem, black calc(100% - 2rem), transparent 100%);
     }
 
     .hide-scrollbar {
@@ -151,11 +158,44 @@
 
 .custom-md spoiler {
   @apply bg-[var(--codeblock-bg)] hover:bg-transparent px-1 py-0.5 overflow-hidden rounded-md transition-all duration-150;
+}
 
-  &:not(:hover) {
+.custom-md spoiler:not(:hover) {
     color: var(--codeblock-bg);
-    * {
-        color: var(--codeblock-bg);
-    }
-  }
+}
+
+.custom-md spoiler:not(:hover) * {
+    color: var(--codeblock-bg);
+}
+
+.back-to-top-wrapper {
+    width: 3.75rem;
+    height: 3.75rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    pointer-events: none;
+}
+
+.back-to-top-btn {
+    color: var(--primary);
+    font-size: 2.25rem;
+    font-weight: bold;
+    border: none;
+    position: fixed;
+    bottom: 10rem;
+    opacity: 1;
+    cursor: pointer;
+    transform: translateX(5rem);
+    pointer-events: auto;
+    z-index: 50;
+    display: none;
+}
+
+.back-to-top-btn:active {
+    transform: translateX(5rem) scale(0.9);
+}
+
+#go-to-comments-btn {
+    bottom: 14.5rem;
 }

@@ -1,6 +1,6 @@
-name = "hengduan"
-compatibility_date = "2026-02-23"
+name = "白鹿原嚒"
+compatibility_date = "2026-02-24"
 pages_build_output_dir = "./dist"
 
 [vars]
-SITE_TITLE = "hengduan"
+SITE_TITLE = "白鹿原嚒"

@@ -10,6 +10,9 @@ async function getRawSortedPosts() {
 	});
 
 	const sorted = allBlogPosts.sort((a, b) => {
+		if (a.data.pinned !== b.data.pinned) {
+			return a.data.pinned ? -1 : 1;
+		}
 		const dateA = new Date(a.data.published);
 		const dateB = new Date(b.data.published);
 		return dateA > dateB ? -1 : 1;
@@ -99,7 +102,12 @@ export async function getCategoryList(): Promise<Category[]> {
 	});
 
 	const lst = Object.keys(count).sort((a, b) => {
-		return a.toLowerCase().localeCompare(b.toLowerCase());
+		const aLower = a.toLowerCase();
+		const bLower = b.toLowerCase();
+		const uncategorized = i18n(I18nKey.uncategorized).toLowerCase();
+		if (aLower === uncategorized) return 1;
+		if (bLower === uncategorized) return -1;
+		return aLower.localeCompare(bLower);
 	});
 
 	const ret: Category[] = [];

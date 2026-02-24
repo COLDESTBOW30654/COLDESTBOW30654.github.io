@@ -3,8 +3,19 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
+import "../styles/main.css";
+
+import ClarityAnalytics from "@components/ClarityAnalytics.astro";
 import ConfigCarrier from "@components/ConfigCarrier.astro";
-import { profileConfig, siteConfig } from "@/config";
+import BackToTop from "@components/control/BackToTop.astro";
+import NewPostNotification from "@components/widget/NewPostNotification.astro";
+import PostDiffInArticle from "@components/widget/PostDiffInArticle.astro";
+import {
+	analyticsConfig,
+	giscusConfig,
+	profileConfig,
+	siteConfig,
+} from "@/config";
 import {
 	AUTO_MODE,
 	BANNER_HEIGHT,
@@ -38,6 +49,18 @@ const isHomePage = pathsEqual(Astro.url.pathname, url("/"));
 // defines global css variables
 // why doing this in Layout instead of GlobalStyles: https://github.com/withastro/astro/issues/6728#issuecomment-1502203757
 const configHue = siteConfig.themeColor.hue;
+const giscusEnable = giscusConfig.enable;
+const giscusDataRepo = giscusConfig.dataRepo;
+const giscusDataRepoId = giscusConfig.dataRepoId;
+const giscusDataCategory = giscusConfig.dataCategory;
+const giscusDataCategoryId = giscusConfig.dataCategoryId;
+const giscusDataMapping = giscusConfig.dataMapping;
+const giscusDataStrict = giscusConfig.dataStrict;
+const giscusDataReactionsEnabled = giscusConfig.dataReactionsEnabled;
+const giscusDataEmitMetadata = giscusConfig.dataEmitMetadata;
+const giscusDataInputPosition = giscusConfig.dataInputPosition;
+const giscusDataLang = giscusConfig.dataLang;
+const giscusDataLoading = giscusConfig.dataLoading;
 if (!banner || typeof banner !== "string" || banner.trim() === "") {
 	banner = siteConfig.banner.src;
 }
@@ -110,7 +133,7 @@ const bannerOffset =
 		))}
 
 		<!-- Set the theme before the page is rendered to avoid a flash -->
-		<script is:inline define:vars={{DEFAULT_THEME, LIGHT_MODE, DARK_MODE, AUTO_MODE, BANNER_HEIGHT_EXTEND, PAGE_WIDTH, configHue}}>
+		<script is:inline define:vars={{DEFAULT_THEME, LIGHT_MODE, DARK_MODE, AUTO_MODE, BANNER_HEIGHT_EXTEND, PAGE_WIDTH, configHue, giscusEnable, giscusDataRepo, giscusDataRepoId, giscusDataCategory, giscusDataCategoryId, giscusDataMapping, giscusDataStrict, giscusDataReactionsEnabled, giscusDataEmitMetadata, giscusDataInputPosition, giscusDataLang, giscusDataLoading}}>
 			// Load the theme from local storage
 			const theme = localStorage.getItem('theme') || DEFAULT_THEME;
 			switch (theme) {
@@ -165,15 +188,61 @@ const bannerOffset =
 			}
 		</style>
 	</head>
-	<body class=" min-h-screen transition " class:list={[{"lg:is-home": isHomePage, "enable-banner": enableBanner}]}
-		  data-overlayscrollbars-initialize
+	<body class="min-h-screen transition" class:list={[{ "lg:is-home": isHomePage, "enable-banner": enableBanner }]}
+		data-overlayscrollbars-initialize
 	>
+		<!-- 不蒜子统计隐藏元素 - 使用额外wrapper避免Astro scoped styles污染 -->
+		<div id="busuanzi-hidden" data-astro-no-scoped-styles>
+			<span id="busuanzi_today_pv"></span>
+			<span id="busuanzi_today_uv"></span>
+			<span id="busuanzi_site_pv"></span>
+			<span id="busuanzi_site_uv"></span>
+			<span id="busuanzi_page_pv"></span>
+			<span id="busuanzi_page_uv"></span>
+		</div>
+		<style is:global>
+			#busuanzi-hidden {
+				display: none !important;
+			}
+		</style>
+		{analyticsConfig.clarity?.enable && analyticsConfig.clarity?.projectId && (
+			<ClarityAnalytics projectId={analyticsConfig.clarity.projectId} />
+		)}
+		<NewPostNotification />
+		<PostDiffInArticle />
+		<BackToTop />
 		<div id="bg-box"></div>
 		<ConfigCarrier></ConfigCarrier>
 		<slot />
 
 		<!-- increase the page height during page transition to prevent the scrolling animation from jumping -->
 		<div id="page-height-extend" class="hidden h-[300vh]"></div>
+		<script is:raw>
+			window.addEventListener('load', function() {
+				setTimeout(function syncBusuanzi() {
+					var sitePv = document.getElementById('busuanzi_site_pv');
+					var siteUv = document.getElementById('busuanzi_site_uv');
+					var todayPv = document.getElementById('busuanzi_today_pv');
+					var todayUv = document.getElementById('busuanzi_today_uv');
+					var pfTodayPv = document.getElementById('profile_busuanzi_today_pv');
+					var pfTodayUv = document.getElementById('profile_busuanzi_today_uv');
+					var ftTodayPv = document.getElementById('footer_busuanzi_today_pv');
+					var ftTodayUv = document.getElementById('footer_busuanzi_today_uv');
+					var ftSitePv = document.getElementById('footer_busuanzi_site_pv');
+					var ftSiteUv = document.getElementById('footer_busuanzi_site_uv');
+					var checkAndCopy = function() {
+						if (sitePv && ftSitePv) ftSitePv.textContent = sitePv.textContent;
+						if (siteUv && ftSiteUv) ftSiteUv.textContent = siteUv.textContent;
+						if (todayPv && pfTodayPv) pfTodayPv.textContent = todayPv.textContent;
+						if (todayUv && pfTodayUv) pfTodayUv.textContent = todayUv.textContent;
+						if (todayPv && ftTodayPv) ftTodayPv.textContent = todayPv.textContent;
+						if (todayUv && ftTodayUv) ftTodayUv.textContent = todayUv.textContent;
+					};
+					checkAndCopy();
+					setInterval(checkAndCopy, 1000);
+				}, 500);
+			});
+		</script>
 	</body>
 </html>
 
@@ -210,6 +279,7 @@ const bannerOffset =
 		@apply opacity-0 -translate-y-16
 	}
 }
+
 </style>
 
 <script>
@@ -389,6 +459,30 @@ function showBanner() {
 	banner.classList.remove('opacity-0', 'scale-105');
 }
 
+function loadGiscus() {
+	const container = document.getElementById('giscus-container');
+	if (!container) return;
+
+	if (container.querySelector('iframe.giscus-frame') || container.querySelector('script[src*="giscus"]')) return;
+
+	const script = document.createElement('script');
+	script.src = "https://giscus.app/client.js";
+	const attributes = [
+		"data-repo", "data-repo-id", "data-category", "data-category-id",
+		"data-mapping", "data-strict", "data-reactions-enabled",
+		"data-emit-metadata", "data-input-position", "data-lang", "data-loading"
+	];
+	attributes.forEach(attr => {
+		const val = container.getAttribute(attr);
+		if (val) script.setAttribute(attr, val);
+	});
+	script.setAttribute("data-theme", document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+	script.crossOrigin = "anonymous";
+	script.async = true;
+
+	container.appendChild(script);
+}
+
 function init() {
 	// disableAnimation()()		// TODO
 	loadTheme();
@@ -396,6 +490,14 @@ function init() {
 	loadBgSettings();
 	initCustomScrollbar();
 	showBanner();
+	loadGiscus();
+
+	new MutationObserver(() => {
+		const frame = document.querySelector('iframe.giscus-frame');
+		if (!frame) return;
+		const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+		frame.contentWindow.postMessage({ giscus: { setConfig: { theme } } }, 'https://giscus.app');
+	}).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 }
 
 /* Load settings when entering the site */
@@ -459,6 +561,7 @@ const setup = () => {
 		if (heightExtend) {
 			heightExtend.classList.remove('hidden')
 		}
+		loadGiscus();
 	});
 	window.swup.hooks.on('visit:end', (_visit: {to: {url: string}}) => {
 		setTimeout(() => {

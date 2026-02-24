@@ -8,7 +8,7 @@ import { expressiveCodeConfig } from "@/config";
 import type { LIGHT_DARK_MODE } from "@/types/config";
 
 export function getDefaultHue(): number {
-	const fallback = "250";
+	const fallback = "120";
 	const configCarrier = document.getElementById("config-carrier");
 	return Number.parseInt(configCarrier?.dataset.hue || fallback, 10);
 }
@@ -54,10 +54,17 @@ export function applyThemeToDocument(theme: LIGHT_DARK_MODE) {
 export function setTheme(theme: LIGHT_DARK_MODE): void {
 	localStorage.setItem("theme", theme);
 	applyThemeToDocument(theme);
+	
+	// Dispatch custom event to notify other components
+	window.dispatchEvent(new CustomEvent("themechange", { detail: { theme } }));
 }
 
 export function getStoredTheme(): LIGHT_DARK_MODE {
-	return (localStorage.getItem("theme") as LIGHT_DARK_MODE) || DEFAULT_THEME;
+	const stored = localStorage.getItem("theme");
+	if (stored === LIGHT_MODE || stored === DARK_MODE || stored === AUTO_MODE) {
+		return stored;
+	}
+	return DEFAULT_THEME;
 }
 
 export function getRainbowMode(): boolean {

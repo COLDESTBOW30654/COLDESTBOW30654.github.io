@@ -22,6 +22,7 @@ interface Props {
 	lang?: string;
 	setOGTypeArticle?: boolean;
 	headings?: MarkdownHeading[];
+	showTocWrapper?: boolean;
 }
 
 const {
@@ -31,6 +32,7 @@ const {
 	lang,
 	setOGTypeArticle,
 	headings = [],
+	showTocWrapper = false,
 } = Astro.props;
 const hasBannerCredit =
 	siteConfig.banner.enable && siteConfig.banner.credit.enable;
@@ -97,8 +99,6 @@ const mainPanelTop = siteConfig.banner.enable
                 <Footer></Footer>
             </div>
         </div>
-
-        <BackToTop></BackToTop>
     </div>
 </div>
 
@@ -106,17 +106,17 @@ const mainPanelTop = siteConfig.banner.enable
 <div class="absolute w-full z-0 hidden 2xl:block">
     <div class="relative max-w-[var(--page-width)] mx-auto">
         <!-- TOC component -->
-        {siteConfig.toc.enable && <div id="toc-wrapper" class:list={["hidden lg:block transition absolute top-0 -right-[var(--toc-width)] w-[var(--toc-width)] items-center",
+        {showTocWrapper && <div id="toc-wrapper" class:list={["hidden lg:block transition absolute top-0 -right-[var(--toc-width)] w-[var(--toc-width)] items-center",
             {"toc-hide": siteConfig.banner.enable}]}
         >
-            <div id="toc-inner-wrapper" class="fixed top-14 w-[var(--toc-width)] h-[calc(100vh_-_20rem)] overflow-y-scroll overflow-x-hidden hide-scrollbar">
-                <div id="toc" class="w-full h-full transition-swup-fade ">
-                    <div class="h-8 w-full"></div>
+            <div id="toc-inner-wrapper" class="fixed top-14 w-[var(--toc-width)] max-h-[calc(100vh_-_20rem)] overflow-y-auto overflow-x-hidden hide-scrollbar rounded-xl border border-[oklch(0.45_0.01_var(--hue))] bg-[oklch(0.97_0.01_var(--hue))] dark:bg-[oklch(0.18_0.01_var(--hue))] shadow-lg shadow-black/5">
+                <div id="toc" class="w-full transition-swup-fade p-2">
                     <TOC headings={headings}></TOC>
-                    <div class="h-8 w-full"></div>
                 </div>
             </div>
         </div>}
+        
+        {!showTocWrapper && siteConfig.toc.enable && <div id="toc"></div>}
 
         <!-- #toc needs to exist for Swup to work normally -->
         {!siteConfig.toc.enable && <div id="toc"></div>}

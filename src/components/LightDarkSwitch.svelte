@@ -23,11 +23,19 @@ onMount(() => {
 		applyThemeToDocument(mode);
 	};
 	darkModePreference.addEventListener("change", changeThemeWhenSchemeChanged);
+	
+	// Listen for theme changes from other components
+	const handleThemeChange = (e: CustomEvent<{ theme: LIGHT_DARK_MODE }>) => {
+		mode = e.detail.theme;
+	};
+	window.addEventListener("themechange", handleThemeChange as EventListener);
+	
 	return () => {
 		darkModePreference.removeEventListener(
 			"change",
 			changeThemeWhenSchemeChanged,
 		);
+		window.removeEventListener("themechange", handleThemeChange as EventListener);
 	};
 });
 

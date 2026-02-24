@@ -1,0 +1,186 @@
+---
+import { Icon } from "astro-icon/components";
+import WidgetLayout from "./WidgetLayout.astro";
+
+const COLLAPSED_HEIGHT = "3rem";
+
+const primaryDomain = "blog.119567.xyz";
+const backupDomain = "hengduan.dpdns.org";
+---
+
+<WidgetLayout name="网站域名" id="domain-switcher" isCollapsed={false} collapsedHeight={COLLAPSED_HEIGHT}>
+    <div class="domain-switcher">
+        <div class="current-domain" id="current-domain-display">
+            <span class="current-label">当前访问：</span>
+            <span class="current-host" id="current-host">加载中...</span>
+        </div>
+        <div class="domain-list" id="domain-list">
+            <a href={"https://" + primaryDomain} class="domain-item" data-domain={primaryDomain} target="_blank">
+                <span class="domain-badge primary">主站</span>
+                <span class="domain-url">{primaryDomain}</span>
+                <span class="domain-latency" data-latency={primaryDomain}>测速中...</span>
+            </a>
+            <a href={"https://" + backupDomain} class="domain-item" data-domain={backupDomain} target="_blank">
+                <span class="domain-badge backup">备用</span>
+                <span class="domain-url">{backupDomain}</span>
+                <span class="domain-latency" data-latency={backupDomain}>测速中...</span>
+            </a>
+        </div>
+    </div>
+</WidgetLayout>
+
+<script is:raw define:vars={{ primaryDomain, backupDomain }}>
+    const domains = [primaryDomain, backupDomain];
+
+    function measureLatency(url, callback) {
+        const start = performance.now();
+        fetch(url + '?t=' + Date.now(), {
+            mode: 'no-cors',
+            cache: 'no-store'
+        }).then(() => {
+            const latency = Math.round(performance.now() - start);
+            callback(latency);
+        }).catch(() => {
+            callback(-1);
+        });
+    }
+
+    function updateLatency() {
+        domains.forEach(domain => {
+            measureLatency('https://' + domain, (latency) => {
+                const el = document.querySelector(`[data-latency="${domain}"]`);
+                if (el) {
+                    if (latency < 0) {
+                        el.textContent = '超时';
+                        el.classList.add('timeout');
+                    } else {
+                        el.textContent = latency + 'ms';
+                        el.classList.remove('timeout');
+                    }
+                }
+            });
+        });
+    }
+
+    function initDomainSwitcher() {
+        const currentHost = window.location.hostname;
+        const currentHostEl = document.getElementById('current-host');
+        if (currentHostEl) {
+            currentHostEl.textContent = currentHost;
+        }
+
+        const domainItems = document.querySelectorAll('.domain-item');
+        domainItems.forEach(item => {
+            const domain = item.dataset.domain;
+            if (currentHost === domain || currentHost.includes(domain)) {
+                item.classList.add('current');
+            } else {
+                item.classList.remove('current');
+            }
+        });
+
+        updateLatency();
+        setInterval(updateLatency, 30000);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initDomainSwitcher);
+    } else {
+        initDomainSwitcher();
+    }
+</script>
+
+<style>
+    .domain-switcher {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .current-domain {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.5rem;
+        background: var(--btn-regular-bg);
+        font-size: 0.75rem;
+    }
+
+    .current-label {
+        color: var(--btn-content);
+        opacity: 0.7;
+    }
+
+    .current-host {
+        font-weight: bold;
+        color: var(--primary);
+    }
+
+    .domain-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.5rem;
+        background: var(--btn-regular-bg);
+        color: var(--btn-content);
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .domain-item:hover {
+        background: var(--btn-regular-bg-hover);
+        color: var(--primary);
+    }
+
+    .domain-item.current {
+        background: var(--primary);
+        color: white;
+    }
+
+    .domain-badge {
+        font-weight: bold;
+        font-size: 0.75rem;
+        padding: 0.125rem 0.375rem;
+        border-radius: 0.25rem;
+    }
+
+    .domain-badge.primary {
+        background: var(--primary);
+        color: white;
+    }
+
+    .domain-badge.backup {
+        background: #f59e0b;
+        color: white;
+    }
+
+    .domain-item.current .domain-badge {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .domain-url {
+        flex: 1;
+        font-size: 0.75rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .domain-latency {
+        font-size: 0.75rem;
+        padding: 0.125rem 0.375rem;
+        border-radius: 0.25rem;
+        background: rgba(0, 0, 0, 0.1);
+        font-weight: bold;
+    }
+
+    .domain-latency.timeout {
+        color: #ef4444;
+    }
+
+    .domain-item.current .domain-latency {
+        background: rgba(255, 255, 255, 0.2);
+    }
+</style>
