@@ -189,24 +189,17 @@ const bannerOffset =
 		</style>
 	</head>
 	<!-- 不蒜子统计脚本 -->
-	<script async src="https://busuanzi.51vipbiz.com/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	<script defer src="//cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js"></script>
 	<body class="min-h-screen transition" class:list={[{ "lg:is-home": isHomePage, "enable-banner": enableBanner }]}
 		data-overlayscrollbars-initialize
 	>
-		<!-- 不蒜子统计隐藏元素 - 使用额外wrapper避免Astro scoped styles污染 -->
-		<div id="busuanzi-hidden" data-astro-no-scoped-styles>
-			<span id="busuanzi_today_pv"></span>
-			<span id="busuanzi_today_uv"></span>
-			<span id="busuanzi_site_pv"></span>
-			<span id="busuanzi_site_uv"></span>
-			<span id="busuanzi_page_pv"></span>
-			<span id="busuanzi_page_uv"></span>
-		</div>
-		<style is:global>
-			#busuanzi-hidden {
-				display: none !important;
-			}
-		</style>
+		<!-- 不蒜子统计元素 - 供脚本填充数据 -->
+		<span id="busuanzi_site_pv" style="display:none"></span>
+		<span id="busuanzi_site_uv" style="display:none"></span>
+		<span id="busuanzi_today_pv" style="display:none"></span>
+		<span id="busuanzi_today_uv" style="display:none"></span>
+		<span id="busuanzi_page_pv" style="display:none"></span>
+		<span id="busuanzi_page_uv" style="display:none"></span>
 		{analyticsConfig.clarity?.enable && analyticsConfig.clarity?.projectId && (
 			<ClarityAnalytics projectId={analyticsConfig.clarity.projectId} />
 		)}
@@ -242,7 +235,7 @@ const bannerOffset =
 					};
 					checkAndCopy();
 					setInterval(checkAndCopy, 1000);
-				}, 500);
+				}, 1000);
 			});
 		</script>
 	</body>
