@@ -31,7 +31,12 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: |
+          for i in 1 2 3; do
+            pnpm install --no-frozen-lockfile && break
+            echo "Retry $i failed, waiting 5s..."
+            sleep 5
+          done
 
       - name: Build
         run: pnpm build
