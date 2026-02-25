@@ -41,7 +41,12 @@ export const siteConfig: SiteConfig = {
 
 export const navBarConfig: NavBarConfig = {
 	links: [
-		LinkPreset.Home,
+		{
+			name: "主页",
+			url: "https://blym.top/",
+			external: true,
+		},
+		LinkPreset.blog,
 		LinkPreset.Archive,
 		{
 			name: "关于",

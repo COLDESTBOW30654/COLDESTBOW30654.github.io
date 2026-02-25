@@ -1,7 +1,7 @@
 {
-  "build": {
-    "command": "pnpm install --no-frozen-lockfile && pnpm build",
-    "cwd": ".",
-    "watch_dir": "."
-  }
+	"build": {
+		"command": "pnpm install --no-frozen-lockfile && pnpm build",
+		"cwd": ".",
+		"watch_dir": "."
+	}
 }

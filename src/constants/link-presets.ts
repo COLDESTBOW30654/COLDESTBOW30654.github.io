@@ -3,8 +3,12 @@ import { i18n } from "@i18n/translation";
 import { LinkPreset, type NavBarLink } from "@/types/config";
 
 export const LinkPresets: { [key in LinkPreset]: NavBarLink } = {
-	[LinkPreset.Home]: {
+	[LinkPreset.home]: {
 		name: i18n(I18nKey.home),
+		url: "https://blym.top/",
+	},	
+	[LinkPreset.blog]: {
+		name: i18n(I18nKey.blog),
 		url: "/",
 	},
 	[LinkPreset.About]: {
