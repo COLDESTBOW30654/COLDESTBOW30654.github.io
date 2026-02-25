@@ -4,8 +4,9 @@ import WidgetLayout from "./WidgetLayout.astro";
 
 const COLLAPSED_HEIGHT = "3rem";
 
-const primaryDomain = "blog.119567.xyz";
-const backupDomain = "hengduan.dpdns.org";
+const primaryDomain = "blog.blym.top";
+const primaryDomain1 = "blog.119567.xyz";
+const backupDomain2 = "hengduan.dpdns.org";
 ---
 
 <WidgetLayout name="网站域名" id="domain-switcher" isCollapsed={false} collapsedHeight={COLLAPSED_HEIGHT}>
@@ -20,17 +21,22 @@ const backupDomain = "hengduan.dpdns.org";
                 <span class="domain-url">{primaryDomain}</span>
                 <span class="domain-latency" data-latency={primaryDomain}>测速中...</span>
             </a>
-            <a href={"https://" + backupDomain} class="domain-item" data-domain={backupDomain} target="_blank">
+            <a href={"https://" + primaryDomain1} class="domain-item" data-domain={primaryDomain1} target="_blank">
+                <span class="domain-badge primary">主站</span>
+                <span class="domain-url">{primaryDomain1}</span>
+                <span class="domain-latency" data-latency={primaryDomain1}>测速中...</span>
+            </a>
+            <a href={"https://" + backupDomain2} class="domain-item" data-domain={backupDomain2} target="_blank">
                 <span class="domain-badge backup">备用</span>
-                <span class="domain-url">{backupDomain}</span>
-                <span class="domain-latency" data-latency={backupDomain}>测速中...</span>
+                <span class="domain-url">{backupDomain2}</span>
+                <span class="domain-latency" data-latency={backupDomain2}>测速中...</span>
             </a>
         </div>
     </div>
 </WidgetLayout>
 
-<script is:raw define:vars={{ primaryDomain, backupDomain }}>
-    const domains = [primaryDomain, backupDomain];
+<script is:raw define:vars={{ primaryDomain, primaryDomain1, backupDomain2 }}>
+    const domains = [primaryDomain, primaryDomain1, backupDomain2];
 
     function measureLatency(url, callback) {
         const start = performance.now();
