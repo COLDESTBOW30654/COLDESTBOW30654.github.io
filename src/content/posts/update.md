@@ -13,11 +13,24 @@ pinned: true
 
 ---
 
+## 2026-02-26
+
+### 新增功能
+
+1. **edgeone page自动部署**
+   - 优化了edgeone page的部署流程
+   - 支持自动部署到edgeone page
+
+2. **移除了Netlify 部署支持**
+   - 将Netlify 部署转为edgeone page部署
+
+---
+
 ## 2026-02-25
 
 ### 新增功能
 
-1. **GitHub Actions 自动部署**
+- **GitHub Actions 自动部署**
    - 配置了 GitHub Actions 自动构建部署
    - 推送到 main 分支自动构建部署到 GitHub Pages
    - 支持绑定自定义域名
