@@ -44,7 +44,6 @@ export const navBarConfig: NavBarConfig = {
 		{
 			name: "主页",
 			url: "https://blym.top/",
-			external: true,
 		},
 		LinkPreset.blog,
 		LinkPreset.Archive,
@@ -54,8 +53,7 @@ export const navBarConfig: NavBarConfig = {
 		},
 		{
 			name: "GitHub",
-			url: "https://github.com/COLDESTBOW30654", // Internal links should not include the base path, as it is automatically added
-			external: true, // Show an external link icon and will open in a new tab
+			url: "https://github.com/COLDESTBOW30654",
 		},
 	],
 };
