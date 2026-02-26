@@ -44,6 +44,7 @@ export const navBarConfig: NavBarConfig = {
 		{
 			name: "主页",
 			url: "https://blym.top/",
+			external: true,
 		},
 		LinkPreset.blog,
 		LinkPreset.Archive,
@@ -54,6 +55,7 @@ export const navBarConfig: NavBarConfig = {
 		{
 			name: "GitHub",
 			url: "https://github.com/COLDESTBOW30654",
+			external: true,
 		},
 	],
 };
