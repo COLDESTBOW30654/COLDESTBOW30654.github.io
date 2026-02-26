@@ -219,8 +219,8 @@ const bannerOffset =
 					var siteUv = document.getElementById('busuanzi_site_uv');
 					var todayPv = document.getElementById('busuanzi_today_pv');
 					var todayUv = document.getElementById('busuanzi_today_uv');
+					var pfSitePv = document.getElementById('profile_busuanzi_site_pv');
 					var pfTodayPv = document.getElementById('profile_busuanzi_today_pv');
-					var pfTodayUv = document.getElementById('profile_busuanzi_today_uv');
 					var ftTodayPv = document.getElementById('footer_busuanzi_today_pv');
 					var ftTodayUv = document.getElementById('footer_busuanzi_today_uv');
 					var ftSitePv = document.getElementById('footer_busuanzi_site_pv');
@@ -229,10 +229,10 @@ const bannerOffset =
 						return text && text.length > 0 && text.length < 20 && !text.includes('已被禁用') && !text.includes('加载中');
 					};
 					var checkAndCopy = function() {
+						if (sitePv && pfSitePv && isValidNumber(sitePv.textContent)) pfSitePv.textContent = sitePv.textContent;
 						if (sitePv && ftSitePv && isValidNumber(sitePv.textContent)) ftSitePv.textContent = sitePv.textContent;
 						if (siteUv && ftSiteUv && isValidNumber(siteUv.textContent)) ftSiteUv.textContent = siteUv.textContent;
 						if (todayPv && pfTodayPv && isValidNumber(todayPv.textContent)) pfTodayPv.textContent = todayPv.textContent;
-						if (todayUv && pfTodayUv && isValidNumber(todayUv.textContent)) pfTodayUv.textContent = todayUv.textContent;
 						if (todayPv && ftTodayPv && isValidNumber(todayPv.textContent)) ftTodayPv.textContent = todayPv.textContent;
 						if (todayUv && ftTodayUv && isValidNumber(todayUv.textContent)) ftTodayUv.textContent = todayUv.textContent;
 					};
