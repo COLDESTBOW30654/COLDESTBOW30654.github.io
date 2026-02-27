@@ -53,6 +53,11 @@ export const navBarConfig: NavBarConfig = {
 			url: "/about",
 		},
 		{
+			name: "友链",
+			url: "https://blym.top/friend-links/",
+			external: true,
+		},
+		{
 			name: "GitHub",
 			url: "https://github.com/COLDESTBOW30654",
 			external: true,
